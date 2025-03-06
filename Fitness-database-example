@@ -1,29 +1,33 @@
+-- Table: ActivityLevel
 CREATE TABLE [dbo].[ActivityLevel] (
     [Level_id] [int] NOT NULL,
-    [Level_name] [nvarchar](25) NOT NULL,
-    CONSTRAINT [PK_ActivityLevel] PRIMARY KEY CLUSTERED ([Level_id] ASC)
+    [PK_ActivityLevel] PRIMARY KEY CLUSTERED ([Level_id] ASC)
 );
 
+-- Table: Body
 CREATE TABLE [dbo].[Body] (
     [Body_id] [int] NOT NULL,
-    [Body_name] [nvarchar](50) NOT NULL,
-    CONSTRAINT [PK_Body] PRIMARY KEY CLUSTERED ([Body_id] ASC)
+      NOT NULL,
+    CONSTRAINTSTERED ([Body_id] ASC)
 );
 
+-- Table: ExerciseDifficulty
 CREATE TABLE [dbo].[ExerciseDifficulty] (
     [Difficulty_id] [int] IDENTITY(1,1) NOT NULL,
     [Difficulty_name] [varchar](10) NOT NULL,
-    CONSTRAINT [PK_ExerciseDifficulty] PRIMARY KEY CLUSTERED ([Difficulty_id] ASC)
+    CONSTRIMARY KEY CLUSTERED ([Difficulty_id] ASC)
 );
 
+-- Table: Exercise
 CREATE TABLE [dbo].[Exercise] (
     [Exercise_id] [int] NOT NULL,
-    [Exercise_name] [nvarchar](70) NOT NULL,
+      NOT NULL,
     [Difficulty_id] [int] NOT NULL,
-    CONSTRAINT [PK_Exercise] PRIMARY KEY CLUSTERED ([Exercise_id] ASC),
+   ARY KEY CLUSTERED ([Exercise_id] ASC),
     CONSTRAINT [FK_Exercise_ExerciseDifficulty_Difficulty_id] FOREIGN KEY ([Difficulty_id]) REFERENCES [dbo].[ExerciseDifficulty] ([Difficulty_id])
 );
 
+-- Table: ExerciseBody
 CREATE TABLE [dbo].[ExerciseBody] (
     [Exercise_id] [int] NOT NULL,
     [Body_id] [int] NOT NULL,
@@ -33,55 +37,46 @@ CREATE TABLE [dbo].[ExerciseBody] (
     CONSTRAINT [FK_ExerciseBody_Exercise_Exercise_id] FOREIGN KEY ([Exercise_id]) REFERENCES [dbo].[Exercise] ([Exercise_id])
 );
 
+-- Table: Gender
 CREATE TABLE [dbo].[Gender] (
     [Gender_id] [int] NOT NULL,
-    [Gender_name] [nvarchar](25) NOT NULL,
+      NOT NULL,
     CONSTRAINT [PK_Gender] PRIMARY KEY CLUSTERED ([Gender_id] ASC)
-);
-
-CREATE TABLE [dbo].[UserGoals] (
+)E TABLE [dbo].[UserGoals] (
     [Goal_id] [int] NOT NULL,
-    [Goal_name] [nvarchar](50) NOT NULL,
+      NOT NULL,
     CONSTRAINT [PK_UserGoals] PRIMARY KEY CLUSTERED ([Goal_id] ASC)
 );
 
-CREATE TABLE [dbo].[UserInformation] (
+-- Table: UserInformatirInformation] (
     [User_id] [int] IDENTITY(1,1) NOT NULL,
-    [User_name] [nvarchar](50) NOT NULL,
       NOT NULL,
     [User_password] [nvarchar](250) NULL,
     [User_mail_address] [nvarchar](255) NOT NULL,
-    [User_country] [nvarchar](max) NULL,
-    [User_birth_date] [datetime2](7) NULL,
-    [User_height] [int] NULL,
-    [User_weight] [int] NULL,
-    [Gender_id] [int] NULL,
+    [User_country] [nvarcharth_date] [datet] [int] NUL  [Gender_id] [int] NULL,
     [Level_id] [int] NULL,
-    [Goal_id] [int] NULL,
-    [User_created_time] [datetime2](7) NULL,
+   _ALTERd_time] [datetime2](7) NULL,
     [User_deleted_time] [datetime2](7) NULL,
-    CONSTRAINT [PK_UserInformation] PRIMARY KEY CLUSTERED ([User_id] ASC)
-);
-
-CREATE TABLE [dbo].[NutritionData] (
-    [User_id] [int] NOT NULL,
+    CONSTRAINT [PK_UserInformation] PRIMARY KEY CLUSTERED ([User_id] ASCATE TABLE [d] [int] NOT NULL,
     [User_liter_goals] [int] NOT NULL,
     [User_current_weight] [int] NOT NULL,
     [User_daily_calorie_goal] [int] NOT NULL,
-    [Day] [datetime2](7) NOT NULL,
-    CONSTRAINT [PK_NutritionData] PRIMARY KEY CLUSTERED ([User_id] ASC),
-    CONSTRAINT [FK_NutritionData_UserInformation_User_id] FOREIGN KEY ([User_id]) REFERENCES [dbo].[UserInformation] ([User_id]) ON DELETE CASCADE
+      NOT NULL,
+    CONSTRAINT [PK_NutritionData] PRIMARY KEY CLUSTERED ([User_id] ASC, [Day] ASC),
+    CONSTRAINT [FK_NutritionData_UserInformation_User_id] FOR REFERENCES [dbo].[UserInformation] ([User_id]) ON DELETE CASCADE
 );
 
+-- Table: WaterTracker
 CREATE TABLE [dbo].[WaterTracker] (
     [User_id] [int] NOT NULL,
     [User_amount_water] [int] NOT NULL,
     [User_liter_goals] [int] NOT NULL,
-    [Day] [datetime2](7) NOT NULL,
-    CONSTRAINT [PK_WaterTracker] PRIMARY KEY CLUSTERED ([User_id] ASC),
-    CONSTRAINT [FK_WaterTracker_UserInformation_User_id] FOREIGN KEY ([User_id]) REFERENCES [dbo].[UserInformation] ([User_id]) ON DELETE CASCADE
+      NOT NULL,
+    CONSTRAINT [PK_WaterTracker] PRIMARY KEY CLUSTERED ([User_id] ASC, [Day] ASC),
+    CONSTRAINT [FK_WaterTracker_UserInformation_User_id] FOREIGN KEY ([User_id]) erInformation] ([User_id]) ON DELETE CASCADE
 );
 
+-- Table: Workout
 CREATE TABLE [dbo].[Workout] (
     [Workout_id] [int] IDENTITY(1,1) NOT NULL,
     [User_id] [int] NOT NULL,
@@ -90,7 +85,7 @@ CREATE TABLE [dbo].[Workout] (
     [User_set_number] [nvarchar](50) NOT NULL,
     [User_training_time] [datetime2](7) NOT NULL,
     CONSTRAINT [PK_Workout] PRIMARY KEY CLUSTERED ([Workout_id] ASC),
-    CONSTRAINT [FK_Workout_Body_Body_id] FOREIGN KEY ([Body_id]) REFERENCES [dbo].[Body] ([Body_id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Workout_Body_ REFERENCES [dbCADE,
     CONSTRAINT [FK_Workout_Exercise_Exercise_id] FOREIGN KEY ([Exercise_id]) REFERENCES [dbo].[Exercise] ([Exercise_id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Workout_UserInformation_User_id] FOREIGN KEY ([User_id]) REFERENCES [dbo].[UserInformation] ([User_id]) ON DELETE CASCADE
 );
